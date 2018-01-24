@@ -1,0 +1,38 @@
+{
+  "name": "millerjl1701-duo",
+  "version": "0.1.0",
+  "author": "millerjl1701",
+  "summary": "Puppet module for installation and configuration of Duo Unix ssh 2FA.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/millerjl1701/millerjl1701-duo",
+  "project_page": "https://github.com/millerjl1701/millerjl1701-duo",
+  "issues_url": "https://github.com/millerjl1701/millerjl1701-duo/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">=4.7.0 <5.0.0"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 6.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
+  ]
+}
