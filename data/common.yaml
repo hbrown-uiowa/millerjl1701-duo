@@ -1,7 +1,7 @@
 ---
 
 duo::package_ensure: 'present'
-duo::package_name: 'duo'
+duo::package_name: 'duo_unix'
 duo::service_enable: true
 duo::service_ensure: 'running'
 duo::service_name: 'duo'

@@ -13,7 +13,7 @@ describe 'duo class' do
       apply_manifest(pp, :catch_changes  => true)
     end
 
-    describe package('duo') do
+    describe package('duo_unix') do
       it { should be_installed }
     end
 

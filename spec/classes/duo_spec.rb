@@ -17,7 +17,7 @@ describe 'duo' do
           it { is_expected.to contain_class('duo::install').that_comes_before('Class[duo::config]') }
           it { is_expected.to contain_class('duo::service').that_subscribes_to('Class[duo::config]') }
 
-          it { is_expected.to contain_package('duo').with_ensure('present') }
+          it { is_expected.to contain_package('duo_unix').with_ensure('present') }
 
           it { is_expected.to contain_service('duo').with(
             'ensure'     => 'running',

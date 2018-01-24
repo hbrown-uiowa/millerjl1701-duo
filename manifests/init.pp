@@ -11,7 +11,7 @@
 #
 class duo (
   String                     $package_ensure = 'present',
-  String                     $package_name   = 'duo',
+  String                     $package_name   = 'duo_unix',
   Boolean                    $service_enable = true,
   Enum['running', 'stopped'] $service_ensure = 'running',
   String                     $service_name   = 'duo',
