@@ -18,13 +18,20 @@ class duo (
   ) {
   case $::operatingsystem {
     'RedHat', 'CentOS': {
-      contain duo::install
-      contain duo::config
-      contain duo::service
+      case $::operatingsystemmajrelease {
+        '7': {
+          contain duo::install
+          contain duo::config
+          contain duo::service
 
-      Class['duo::install']
-      -> Class['duo::config']
-      ~> Class['duo::service']
+          Class['duo::install']
+          -> Class['duo::config']
+          ~> Class['duo::service']
+        }
+        default: {
+          fail("${::operatingsystem} ${::operatingsystemmajrelease} not supported")
+        }
+      }
     }
     default: {
       fail("${::operatingsystem} not supported")
