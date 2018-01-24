@@ -11,11 +11,22 @@ describe 'duo' do
         context "duo class without any parameters changed from defaults" do
           it { is_expected.to compile.with_all_deps }
 
+          it { is_expected.to contain_class('duo::repo') }
           it { is_expected.to contain_class('duo::install') }
           it { is_expected.to contain_class('duo::config') }
           it { is_expected.to contain_class('duo::service') }
+          it { is_expected.to contain_class('duo::repo').that_comes_before('Class[duo::install]') }
           it { is_expected.to contain_class('duo::install').that_comes_before('Class[duo::config]') }
           it { is_expected.to contain_class('duo::service').that_subscribes_to('Class[duo::config]') }
+
+          it { is_expected.to contain_yumrepo('duosecurity').with(
+            'ensure'   => 'present',
+            'descr'    => 'Duo Security Repository',
+            'baseurl'  => 'http://pkg.duosecurity.com/CentOS/$releasever/$basearch',
+            'enabled'  => '1',
+            'gpgcheck' => '1',
+            'gpgkey'   => 'https://duo.com/RPM-GPG-KEY-DUO',
+          ) }
 
           it { is_expected.to contain_package('duo_unix').with_ensure('present') }
 
