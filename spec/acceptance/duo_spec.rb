@@ -18,6 +18,14 @@ describe 'duo class' do
       it { should be_enabled }
     end
 
+    describe package('openssl-devel') do
+      it { should be_installed }
+    end
+
+    describe package('zlib-devel') do
+      it { should be_installed }
+    end
+
     describe package('duo_unix') do
       it { should be_installed }
     end

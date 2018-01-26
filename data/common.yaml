@@ -6,6 +6,7 @@ duo::package_ensure: 'present'
 duo::package_name: 'duo_unix'
 duo::package_prereqs:
   - 'openssl-devel'
+  - 'zlib-devel'
 duo::repo_baseurl: 'http://pkg.duosecurity.com/CentOS/$releasever/$basearch'
 duo::repo_descr: 'Duo Security Repository'
 duo::repo_enabled: true

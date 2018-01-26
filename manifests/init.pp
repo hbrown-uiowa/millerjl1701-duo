@@ -14,7 +14,7 @@ class duo (
   Boolean                    $manage_repo     = true,
   String                     $package_ensure  = 'present',
   String                     $package_name    = 'duo_unix',
-  Array                      $package_prereqs = [ 'openssl-devel', ],
+  Array                      $package_prereqs = [ 'openssl-devel', 'zlib-devel', ],
   String                     $repo_baseurl    = 'http://pkg.duosecurity.com/CentOS/$releasever/$basearch',
   String                     $repo_descr      = 'Duo Security Repository',
   Boolean                    $repo_enabled    = true,
@@ -30,11 +30,13 @@ class duo (
       case $::operatingsystemmajrelease {
         '7': {
           contain duo::repo
+          contain duo::prereqs
           contain duo::install
           contain duo::config
           contain duo::service
 
           Class['duo::repo']
+          -> Class['duo::prereqs']
           -> Class['duo::install']
           -> Class['duo::config']
           ~> Class['duo::service']

@@ -29,6 +29,8 @@ describe 'duo' do
           ) }
 
           it { is_expected.to contain_package('duo_unix').with_ensure('present') }
+          it { is_expected.to contain_package('openssl-devel').with_ensure('present')  }
+          it { is_expected.to contain_package('zlib-devel').with_ensure('present')  }
 
           #it { is_expected.to contain_service('duo').with(
           #  'ensure'     => 'running',
@@ -36,6 +38,17 @@ describe 'duo' do
           #  'hasstatus'  => 'true',
           #  'hasrestart' => 'true',
           #) }
+        end
+
+        context 'duo class with manage_prereqs set to false' do
+          let(:params){
+            {
+              :manage_prereqs => false,
+            }
+          }
+
+          it { is_expected.to_not contain_package('openssl-devel') }
+          it { is_expected.to_not contain_package('zlib-devel') }
         end
 
         context 'duo class with manage_repo set to false' do
@@ -46,6 +59,18 @@ describe 'duo' do
           }
 
           it { is_expected.to_not contain_yumrepo('duosecurity') }
+        end
+
+        context 'duo class with package_prereqs set to include pam-devel in addition to the others' do
+          let(:params){
+            {
+              :package_prereqs => [ 'openssl-devel', 'zlib-devel', 'pam-devel', ],
+            }
+          }
+
+          it { is_expected.to contain_package('openssl-devel').with_ensure('present')  }
+          it { is_expected.to contain_package('pam-devel').with_ensure('present')  }
+          it { is_expected.to contain_package('zlib-devel').with_ensure('present')  }
         end
 
         context 'duo class with repo_baseurl set to http://foo.example.com/bar' do
