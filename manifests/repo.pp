@@ -19,11 +19,11 @@ class duo::repo {
     }
 
     yumrepo { 'duosecurity':
-      ensure   => $duo::package_ensure,
+      ensure   => $duo::repo_ensure,
       descr    => $duo::repo_descr,
       baseurl  => $duo::repo_baseurl,
       enabled  => $_enabled,
-      gpgcheck => '1',
+      gpgcheck => $_gpgcheck,
       gpgkey   => $duo::repo_gpgkey,
     }
   }
