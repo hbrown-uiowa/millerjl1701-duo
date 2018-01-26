@@ -30,13 +30,72 @@ describe 'duo' do
 
           it { is_expected.to contain_package('duo_unix').with_ensure('present') }
 
-          it { is_expected.to contain_service('duo').with(
-            'ensure'     => 'running',
-            'enable'     => 'true',
-            'hasstatus'  => 'true',
-            'hasrestart' => 'true',
-          ) }
+          #it { is_expected.to contain_service('duo').with(
+          #  'ensure'     => 'running',
+          #  'enable'     => 'true',
+          #  'hasstatus'  => 'true',
+          #  'hasrestart' => 'true',
+          #) }
         end
+
+        context 'duo class with manage_repo set to false' do
+          let(:params){
+            {
+              :manage_repo => false,
+            }
+          }
+
+          it { is_expected.to_not contain_yumrepo('duosecurity') }
+        end
+
+        context 'duo class with repo_baseurl set to http://foo.example.com/bar' do
+          let(:params){
+            {
+              :repo_baseurl => 'http://foo.example.com/bar',
+            }
+          }
+          it { is_expected.to contain_yumrepo('duosecurity').with_baseurl('http://foo.example.com/bar') }
+        end
+
+        context 'duo class with repo_descr set to foo repo' do
+          let(:params){
+            {
+              :repo_descr => 'foo repo',
+            }
+          }
+          it { is_expected.to contain_yumrepo('duosecurity').with_descr('foo repo') }
+        end
+
+        context 'duo class with repo_enabled set to false' do
+          let(:params){
+            {
+              :repo_enabled => false,
+            }
+          }
+
+          it { is_expected.to contain_yumrepo('duosecurity').with_enabled('0') }
+        end
+
+        context 'duo class with repo_ensure set to absent' do
+          let(:params){
+            {
+              :repo_ensure => 'absent',
+            }
+          }
+
+          it { is_expected.to contain_yumrepo('duosecurity').with_ensure('absent') }
+        end
+
+        context 'duo class with repo_gpgcheck set to false' do
+          let(:params){
+            {
+              :repo_gpgcheck => false,
+            }
+          }
+
+          it { is_expected.to contain_yumrepo('duosecurity').with_gpgcheck('0') }
+        end
+
       end
     end
   end

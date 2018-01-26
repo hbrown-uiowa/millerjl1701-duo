@@ -13,13 +13,18 @@ describe 'duo class' do
       apply_manifest(pp, :catch_changes  => true)
     end
 
+    describe yumrepo('duosecurity') do
+      it { should exist }
+      it { should be_enabled }
+    end
+
     describe package('duo_unix') do
       it { should be_installed }
     end
 
-    describe service('duo') do
-      it { should be_enabled }
-      it { should be_running }
-    end
+    #describe service('duo') do
+    #  it { should be_enabled }
+    #  it { should be_running }
+    #end
   end
 end
