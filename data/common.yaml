@@ -1,5 +1,16 @@
 ---
 
+duo::config_accept_env_factor: 'no'
+duo::config_autopush: 'no'
+duo::config_failmode: 'safe'
+duo::config_fallback_local_ip: ~
+duo::config_groups: ~
+duo::config_http_proxy: ~
+duo::config_https_timeout: '0'
+duo::config_login_type: 'pam'
+duo::config_motd: 'no'
+duo::config_prompts: '3'
+duo::config_pushinfo: 'no'
 duo::manage_prereqs: true
 duo::manage_repo: true
 duo::package_ensure: 'present'
@@ -12,6 +23,7 @@ duo::repo_descr: 'Duo Security Repository'
 duo::repo_enabled: true
 duo::repo_gpgcheck: true
 duo::repo_gpgkey: 'https://duo.com/RPM-GPG-KEY-DUO'
+duo::repo_proxy: ~
 duo::service_enable: true
 duo::service_ensure: 'running'
 duo::service_name: 'duo'

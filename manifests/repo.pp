@@ -25,6 +25,7 @@ class duo::repo {
       enabled  => $_enabled,
       gpgcheck => $_gpgcheck,
       gpgkey   => $duo::repo_gpgkey,
+      proxy    => $duo::repo_proxy,
     }
   }
 }

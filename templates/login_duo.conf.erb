@@ -1,0 +1,21 @@
+; puppet managed file. local changes will be overwritten.
+[duo]
+ikey=<%= scope['duo::config_ikey'] %>
+skey=<%= scope['duo::config_skey'] %>
+host=<%= scope['duo::config_apihost'] %>
+<% unless scope['duo::config_groups'].nil? -%>
+groups=<%= scope['duo::config_groups'].join(',') %>
+<% end -%>
+accept_env_factor=<%= scope['duo::config_accept_env_factor'] %>
+autopush=<%= scope['duo::config_autopush'] %>
+failmode=<%= scope['duo::config_failmode'] %>
+<% unless scope['duo::config_http_proxy'].nil? -%>
+http_proxy=<%= scope['duo::config_http_proxy'] %>
+<% end -%>
+https_timeout=<%= scope['duo::config_https_timeout'] %>
+motd=<%= scope['duo::config_motd'] %>
+prompts=<%= scope['duo::config_prompts'] %>
+pushinfo=<%= scope['duo::config_pushinfo'] %>
+<% unless scope['duo::config_fallback_local_ip'].nil? -%>
+fallback_local_ip=<%= scope['duo::config_fallback_local_ip'] %>
+<% end -%>
