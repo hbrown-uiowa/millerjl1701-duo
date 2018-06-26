@@ -61,10 +61,5 @@ describe 'duo class' do
       it { should contain 'motd=no' }
       it { should contain 'pushinfo=no' }
     end
-
-    #describe service('duo') do
-    #  it { should be_enabled }
-    #  it { should be_running }
-    #end
   end
 end

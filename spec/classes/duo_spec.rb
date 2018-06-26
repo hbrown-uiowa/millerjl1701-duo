@@ -21,11 +21,9 @@ describe 'duo' do
           it { is_expected.to contain_class('duo::repo') }
           it { is_expected.to contain_class('duo::install') }
           it { is_expected.to contain_class('duo::config') }
-          it { is_expected.to contain_class('duo::service') }
           it { is_expected.to contain_class('duo::repo').that_comes_before('Class[duo::prereqs]') }
           it { is_expected.to contain_class('duo::prereqs').that_comes_before('Class[duo::install]') }
           it { is_expected.to contain_class('duo::install').that_comes_before('Class[duo::config]') }
-          it { is_expected.to contain_class('duo::service').that_subscribes_to('Class[duo::config]') }
 
           it { is_expected.to contain_yumrepo('duosecurity').with(
             'ensure'   => 'present',
@@ -69,13 +67,6 @@ describe 'duo' do
           it { is_expected.to contain_file('/etc/duo/pam_duo.conf').with_content(/motd=no/) }
           it { is_expected.to contain_file('/etc/duo/pam_duo.conf').with_content(/prompts=3/) }
           it { is_expected.to contain_file('/etc/duo/pam_duo.conf').with_content(/pushinfo=no/) }
-
-          #it { is_expected.to contain_service('duo').with(
-          #  'ensure'     => 'running',
-          #  'enable'     => 'true',
-          #  'hasstatus'  => 'true',
-          #  'hasrestart' => 'true',
-          #) }
         end
 
         context 'duo class with config_groups set to [ foo, bar]' do

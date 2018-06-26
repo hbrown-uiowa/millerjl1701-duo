@@ -5,9 +5,6 @@
 #
 # @param package_ensure Whether to install the duo package, and/or what version. Values: 'present', 'latest', or a specific version number. Default value: present.
 # @param package_name Specifies the name of the package to install. Default value: 'duo'.
-# @param service_enable Whether to enable the duo service at boot. Default value: true.
-# @param service_ensure Whether the duo service should be running. Default value: 'running'.
-# @param service_name Specifies the name of the service to manage. Default value: 'duo'.
 #
 class duo (
   String                     $config_apihost,
@@ -36,9 +33,6 @@ class duo (
   Boolean                    $repo_gpgcheck            = true,
   String                     $repo_gpgkey              = 'https://duo.com/RPM-GPG-KEY-DUO',
   Optional[String]           $repo_proxy               = undef,
-  Boolean                    $service_enable           = true,
-  Enum['running', 'stopped'] $service_ensure           = 'running',
-  String                     $service_name             = 'duo',
   ) {
   case $::operatingsystem {
     'RedHat', 'CentOS': {
@@ -48,13 +42,11 @@ class duo (
           contain duo::prereqs
           contain duo::install
           contain duo::config
-          contain duo::service
 
           Class['duo::repo']
           -> Class['duo::prereqs']
           -> Class['duo::install']
           -> Class['duo::config']
-          ~> Class['duo::service']
         }
         default: {
           fail("${::operatingsystem} ${::operatingsystemmajrelease} not supported")
