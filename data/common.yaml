@@ -24,6 +24,3 @@ duo::repo_enabled: true
 duo::repo_gpgcheck: true
 duo::repo_gpgkey: 'https://duo.com/RPM-GPG-KEY-DUO'
 duo::repo_proxy: ~
-duo::service_enable: true
-duo::service_ensure: 'running'
-duo::service_name: 'duo'
