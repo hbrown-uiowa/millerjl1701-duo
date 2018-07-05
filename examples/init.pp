@@ -4,8 +4,9 @@ node default {
   notify { 'enduser-after': }
 
   class { 'duo':
-    require => Notify['enduser-before'],
-    before  => Notify['enduser-after'],
+    config_ikey    => 'ikeystringfromduo',
+    config_skey    => 'skeystringfromduo',
+    config_apihost => 'f.q.d.n',
   }
 
 }

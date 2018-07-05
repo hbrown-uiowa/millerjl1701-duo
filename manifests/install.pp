@@ -1,6 +1,6 @@
 # @api private
 #
-# This class is called from the main duo class for install.
+# This class is called from the main duo class for installing the application.
 #
 class duo::install {
   assert_private('duo::install is a private class')

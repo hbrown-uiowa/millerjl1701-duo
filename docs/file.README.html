@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.12
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h1>duo</h1>
+
+<p>master branch: <a href="http://travis-ci.org/millerjl1701/millerjl1701-duo"><img src="https://secure.travis-ci.org/millerjl1701/millerjl1701-duo.png?branch=master" alt="Build Status"></a></p>
+
+<h4>Table of Contents</h4>
+
+<ol>
+<li><a href="#module-description">Module Description - What the module does and why it is useful</a></li>
+<li><a href="#setup">Setup - The basics of getting started with duo</a>
+
+<ul>
+<li><a href="#what-duo-affects">What duo affects</a></li>
+<li><a href="#beginning-with-duo">Beginning with duo</a></li>
+</ul></li>
+<li><a href="#usage">Usage - Configuration options and additional functionality</a></li>
+<li><a href="#reference">Reference - An under-the-hood peek at what the module is doing and how</a></li>
+<li><a href="#limitations">Limitations - OS compatibility, etc.</a></li>
+<li><a href="#development">Development - Guide for contributing to the module</a></li>
+</ol>
+
+<h2>Module Description</h2>
+
+<p>This module provides for installation and configuration of the Duo Unix Two-Factor Authentication for SSH application using a minimalist configuration style for Puppet 4 and 5. If you are not a current customer of Duo, this module will not be very useful.</p>
+
+<p>One also needs to configure ssh and/or pam in addition to duo. However, this module makes no attempt to manage either of those application requirements in order to allow for flexibility. If you are looking for modules that might be useful for ssh or pam, there are many on the Puppet forge. The module&#39;s primary author uses:</p>
+
+<ul>
+<li><a href="https://forge.puppet.com/saz/ssh">saz/ssh</a> module</li>
+<li><a href="https://forge.puppet.com/ghoneycutt/pam">ghoneycutt/pam</a> module</li>
+</ul>
+
+<p>However, nothing precludes you from using a different module for either component. </p>
+
+<p>For documentation concerning the product and use of Duo, please refer to the Duo web site: <a href="https://duo.com/">https://duo.com/</a> For support concerning the Duo application itself, please contact Duo directly <a href="https://duo.com/">https://duo.com/</a> as I will be unable to assist you in issues with the application. For Puppet 3 support, I strongly recommend the use of <a href="https://forge.puppet.com/duosecurity/duo_unix">Duo&#39;s puppet module</a> which was archived on 2/2/2018.</p>
+
+<h2>Setup</h2>
+
+<h3>What duo affects</h3>
+
+<ul>
+<li>File: /etc/duo/login_duo.conf</li>
+<li>File: /etc/duo/pam_duo.conf</li>
+<li>File: /etc/yum.repos.d/duosecurity (management can be disabled)</li>
+<li>Package: openssl-devel, zlib-devel (management can be disabled)</li>
+<li>Package: duo_unix</li>
+</ul>
+
+<h3>Beginning with duo</h3>
+
+<pre class="code puppet"><code class="puppet">class { &#39;duo&#39;:
+  config_ikey    =&gt; &#39;ikeystringfromduo&#39;,
+  config_skey    =&gt; &#39;skeystringfromduo&#39;,
+  config_apihost =&gt; &#39;f.q.d.n&#39;,
+}
+</code></pre>
+
+<p>should be all that is needed to install and configure the duo_unix application to the application defaults and recommended configuration using pam_duo. The required paremeters are determined from your particular Duo itegration. Since they are specific to each use case, they are required parameters without any defaults given. If you do not include them in you class statement, puppet will error out.</p>
+
+<h2>Usage</h2>
+
+<p>All parameters to the main class may be passed in via puppet code or hiera.</p>
+
+<h3>Install duo_unix and configure to use pam_login with defaults</h3>
+
+<pre class="code puppet"><code class="puppet">class { &#39;duo&#39;:
+  config_ikey    =&gt; &#39;ikeystringfromduo&#39;,
+  config_skey    =&gt; &#39;skeystringfromduo&#39;,
+  config_apihost =&gt; &#39;f.q.d.n&#39;,
+}
+</code></pre>
+
+<h3>Install duo_unix using a local mirror of the Duo repository</h3>
+
+<pre class="code puppet"><code class="puppet">class { &#39;duo&#39;:
+  config_ikey  =&gt; &#39;ikeystringfromduo&#39;,
+  config_skey  =&gt; &#39;skeystringfromduo&#39;,
+  repo_baseurl =&gt; &#39;http://foo.example.com/bar&#39;,
+}
+</code></pre>
+
+<h3>Install duo_unix using a package manager like Spacewalk</h3>
+
+<pre class="code puppet"><code class="puppet">class { &#39;duo&#39;:
+  config_ikey  =&gt; &#39;ikeystringfromduo&#39;,
+  config_skey  =&gt; &#39;skeystringfromduo&#39;,
+  manage_repo  =&gt; false,
+}
+</code></pre>
+
+<h3>Install duo_unix and configure to use login_duo with defaults</h3>
+
+<pre class="code puppet"><code class="puppet">class { &#39;duo&#39;:
+  config_ikey       =&gt; &#39;ikeystringfromduo&#39;,
+  config_skey       =&gt; &#39;skeystringfromduo&#39;,
+  config_apihost    =&gt; &#39;f.q.d.n&#39;,
+  config_login_type =&gt; &#39;login&#39;,
+}
+</code></pre>
+
+<h3>Install duo_unix and configure the application to use a http proxy</h3>
+
+<pre class="code puppet"><code class="puppet">class { &#39;duo&#39;:
+  config_ikey       =&gt; &#39;ikeystringfromduo&#39;,
+  config_skey       =&gt; &#39;skeystringfromduo&#39;,
+  config_apihost    =&gt; &#39;f.q.d.n&#39;,
+  config_http_proxy =&gt; &#39;http://myproxy.example.com:8080/&#39;,
+}
+</code></pre>
+
+<h2>Reference</h2>
+
+<p>Generated puppet strings documentation with examples is available from <a href="https://millerjl1701.github.io/millerjl1701-duo">https://millerjl1701.github.io/millerjl1701-duo</a>.</p>
+
+<p>The puppet strings documentation is also included in the /docs folder.</p>
+
+<h2>Limitations</h2>
+
+<p>This module was created using CentOS/RHEL 7 for Puppet 4.7+ and Puppet 5 clients. In time, other operating systems will be added such as CentOS 6, RHEL 6, and Ubuntu. Parameters were added to allow for configuration according to the Duo documentation. The most tested case is the login_duo configuration by the author. There is limited configuration checking for the parameters passed to the class.</p>
+
+<p>For the Duo application to properly work, ssh and/or pam need to be configured according to the Duo documentation <a href="https://duo.com/docs/duounix">https://duo.com/docs/duounix</a>. This module does not configure either of those components, and duo will not function properly until you do so. Please refer to the Duo documentation for how to test your configuration.</p>
+
+<h2>Development</h2>
+
+<p>Please see the <a href="CONTRIBUTING.md">CONTRIBUTING document</a> for information on how to get started developing code and submit a pull request for this module. While written in an opinionated fashion at the start, over time this can become less and less the case.</p>
+
+<h3>Contributors</h3>
+
+<p>To see who is involved with this module, see the <a href="https://github.com/millerjl1701/millerjl1701-duo/graphs/contributors">GitHub list of contributors</a> or the <a href="CONTRIBUTORS">CONTRIBUTORS document</a>.</p>
+</div></div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>

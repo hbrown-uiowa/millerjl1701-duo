@@ -1,6 +1,6 @@
 # @api private
 #
-# This class is called from duo for service config.
+# This class is called from duo for configuring the yum.repos.d file.
 #
 class duo::repo {
   assert_private('duo::config is a private class')

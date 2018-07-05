@@ -1,6 +1,6 @@
 # @api private
 #
-# This class is called from duo for service config.
+# This class is called from duo for configuration of the application.
 #
 class duo::config {
   assert_private('duo::config is a private class')
