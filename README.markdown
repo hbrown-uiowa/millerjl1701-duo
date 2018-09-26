@@ -113,7 +113,7 @@ The puppet strings documentation is also included in the /docs folder.
 
 ## Limitations
 
-This module was created using CentOS/RHEL 7 for Puppet 4.7+ and Puppet 5 clients. In time, other operating systems will be added such as CentOS 6, RHEL 6, and Ubuntu. Parameters were added to allow for configuration according to the Duo documentation. The most tested case is the login_duo configuration by the author. There is limited configuration checking for the parameters passed to the class.
+This module was created using CentOS/RHEL 7 for Puppet 4.7+ and Puppet 5 clients. In time, other operating systems will be added such as Ubuntu. Parameters were added to allow for configuration according to the Duo documentation. The most tested case is the login_duo configuration by the author. There is limited configuration checking for the parameters passed to the class.
 
 For the Duo application to properly work, ssh and/or pam need to be configured according to the Duo documentation [https://duo.com/docs/duounix](https://duo.com/docs/duounix). This module does not configure either of those components, and duo will not function properly until you do so. Please refer to the Duo documentation for how to test your configuration.
 
